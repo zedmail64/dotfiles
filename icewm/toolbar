@@ -1,0 +1,10 @@
+# This is an example for IceWM's toolbar definition file.
+#
+# Place your variants in @CFGDIR@ or in $HOME/.icewm
+# since modifications to this file will be discarded when you
+# (re)install icewm.
+#
+prog "PCManFM " pcmanfm /usr/bin/pcmanfm 
+prog "LXTerminal " lxterminal /usr/bin/lxterminal
+prog "Mousepad " mousepad /usr/bin/mousepad
+prog "Google Chrome " googlechrome /usr/bin/google-chrome
