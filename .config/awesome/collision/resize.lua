@@ -25,14 +25,15 @@ local r_ajust = {
 }
 
 -- Resize tiled using the keyboard
+-- Changed tiling resize steps -0.02 ----------
 local layouts_all = {
     [awful.layout.suit.floating]    = { right = "" },
-    [awful.layout.suit.tile]        = { right = {mwfact= 0.05}, left = {mwfact=-0.05}, up ={wfact=-0.1  }, down = {wfact = 0.1 } },
-    [awful.layout.suit.tile.left]   = { right = {mwfact=-0.05}, left = {mwfact= 0.05}, up ={wfact= 0.1  }, down = {wfact =-0.1 } },
-    [awful.layout.suit.tile.bottom] = { right = {wfact=-0.1  }, left = {wfact= 0.1  }, up ={mwfact=-0.05}, down = {mwfact= 0.05} },
-    [awful.layout.suit.tile.top]    = { right = {wfact=-0.1  }, left = {wfact= 0.1  }, up ={mwfact= 0.05}, down = {mwfact=-0.05} },
-    [awful.layout.suit.spiral]      = { right = {wfact=-0.1  }, left = {wfact= 0.1  }, up ={mwfact= 0.05}, down = {mwfact=-0.05} },
-    [awful.layout.suit.magnifier]   = { right = {mwfact= 0.05}, left = {mwfact=-0.05}, up ={mwfact= 0.05}, down = {mwfact=-0.05} },
+    [awful.layout.suit.tile]        = { right = {mwfact= 0.03}, left = {mwfact=-0.03}, up ={wfact=-0.08  }, down = {wfact = 0.08 } },
+    [awful.layout.suit.tile.left]   = { right = {mwfact=-0.03}, left = {mwfact= 0.03}, up ={wfact= 0.08  }, down = {wfact =-0.08 } },
+    [awful.layout.suit.tile.bottom] = { right = {wfact=-0.08  }, left = {wfact= 0.08  }, up ={mwfact=-0.03}, down = {mwfact= 0.03} },
+    [awful.layout.suit.tile.top]    = { right = {wfact=-0.08  }, left = {wfact= 0.08  }, up ={mwfact= 0.03}, down = {mwfact=-0.03} },
+    [awful.layout.suit.spiral]      = { right = {wfact=-0.08  }, left = {wfact= 0.08  }, up ={mwfact= 0.03}, down = {mwfact=-0.03} },
+    [awful.layout.suit.magnifier]   = { right = {mwfact= 0.03}, left = {mwfact=-0.03}, up ={mwfact= 0.03}, down = {mwfact=-0.03} },
     -- The other layouts cannot be resized using variables
 }
 
@@ -98,7 +99,7 @@ local function create_indicators()
     local bw       = beautiful.collision_resize_border_width
     local bc       = beautiful.collision_resize_border_color
     local padding  = beautiful.collision_resize_padding or 7
-    local bg       = beautiful.collision_resize_bg or beautiful.bg_alternate or "#ff0000"
+    local bg       = beautiful.collision_resize_bg or beautiful.bg_focus or "##3a414b"
     local fg       = beautiful.collision_resize_fg or beautiful.fg_normal    or "#0000ff"
     local arrow_bc = beautiful.collision_resize_arrow_border_color
     local arrow_bw = beautiful.collision_resize_arrow_border_width or 0
@@ -198,8 +199,8 @@ end
 function module.resize(mod,key,event,direction,is_swap,is_max)
     local c = capi.client.focus
     if not c then return true end
-
-    local del = is_swap and -100 or 100
+-- Changed floating resize steps 100 to 10 ----------
+    local del = is_swap and -10 or 10
     direction = is_swap and invert[direction] or direction
 
     local lay = awful.layout.get(c.screen)

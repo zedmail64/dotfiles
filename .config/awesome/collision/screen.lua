@@ -125,10 +125,10 @@ local function create_wibox(s)
     local bw       = beautiful.collision_screen_border_width
     local bc       = beautiful.collision_screen_border_color
     local padding  = beautiful.collision_screen_padding or 10
-    local bg       = beautiful.collision_screen_bg or beautiful.bg_alternate or "#ff0000"
+    local bg       = beautiful.collision_screen_bg or beautiful.bg_alternate or "#3a414b"
     local fg       = beautiful.collision_screen_fg or beautiful.fg_normal    or "#0000ff"
-    local bg_focus = beautiful.collision_screen_bg_focus or beautiful.bg_urgent or "#ff0000"
-    local fg_focus = beautiful.collision_screen_fg_focus or beautiful.fg_urgent or "#ff0000"
+    local bg_focus = beautiful.collision_screen_bg_focus or beautiful.bg_urgent or "#3a414b"
+    local fg_focus = beautiful.collision_screen_fg_focus or beautiful.fg_urgent or "#3a414b"
 
     -- Setup the widgets
     w:setup {
@@ -275,10 +275,10 @@ local function highlight_screen(ss)
   ss = capi.screen[ss]
   if pss ~= ss then
 
-    local bg       = beautiful.collision_screen_bg or beautiful.bg_alternate or "#ff0000"
+    local bg       = beautiful.collision_screen_bg or beautiful.bg_alternate or "#3a414b"
     local fg       = beautiful.collision_screen_fg or beautiful.fg_normal    or "#0000ff"
-    local bg_focus = beautiful.collision_screen_bg_focus or beautiful.bg_urgent or "#ff0000"
-    local fg_focus = beautiful.collision_screen_fg_focus or beautiful.fg_urgent or "#ff0000"
+    local bg_focus = beautiful.collision_screen_bg_focus or beautiful.bg_urgent or "#3a414b"
+    local fg_focus = beautiful.collision_screen_fg_focus or beautiful.fg_urgent or "#3a414b"
 
     if pss then
         bgs[pss].bg = bg

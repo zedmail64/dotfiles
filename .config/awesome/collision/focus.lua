@@ -16,9 +16,9 @@ local color        = require( "gears.color"    )
 local col_utils    = require( "collision.util" )
 local grect        = require( "gears.geometry" ).rectangle
 local placement    = require( "awful.placement")
-
+-- Changed floating move steps 100 to 10 ----------
 local module = {}
-local wiboxes,delta = nil,100
+local wiboxes,delta = nil,10
 local edge = nil
 
 ---------------- Visual -----------------------
@@ -29,9 +29,9 @@ local function init()
     local bw       = beautiful.collision_focus_border_width
     local bc       = beautiful.collision_focus_border_color
     local padding  = beautiful.collision_focus_padding or 7
-    local bg       = beautiful.collision_focus_bg or beautiful.bg_alternate or "#ff0000"
+    local bg       = beautiful.collision_focus_bg or beautiful.bg_alternate or "#3a414b"
     local fg       = beautiful.collision_focus_fg or beautiful.fg_normal    or "#0000ff"
-    local bg_focus = beautiful.collision_focus_bg_center or beautiful.bg_urgent or "#ff0000"
+    local bg_focus = beautiful.collision_focus_bg_center or beautiful.bg_focus or "#3a414b"
     local sw       = beautiful.collision_shape_width or 75
     local sh       = beautiful.collision_shape_height or 75
     local arrow_bc = beautiful.collision_focus_arrow_border_color

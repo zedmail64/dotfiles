@@ -78,7 +78,7 @@ local function draw_shape(s,collection,current_idx,icon_f,y,text_height)
     beautiful.collision_max_bg or beautiful.menu_bg_normal or beautiful.bg_normal
   )
 
-  local normal, focus = color(beautiful.collision_max_fg or beautiful.fg_normal), color(beautiful.bg_urgent)
+  local normal, focus = color(beautiful.collision_max_fg or beautiful.fg_normal), color("#FFFFFF")
 
   -- Init the text properties
   if not pango_l then

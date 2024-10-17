@@ -162,7 +162,7 @@ local function new(k)
         aw[#aw+1] = awful.key({ "Mod4", "Shift"                      }, key_name, function () module.move  (k          ) end,
                               { description = "Move to the "..key_name, group = "Collision" })
         aw[#aw+1] = awful.key({ "Mod4", "Shift",   "Control"         }, key_name, function () module.move  (k,nil ,true) end,
-                              { description = "", group = "Collision" })
+                              { description = "Move floating to the far side ", group = "Collision" })
         aw[#aw+1] = awful.key({ "Mod1",            "Control"         }, key_name, function () module.focus (k,nil ,true) end,
                               { description = "Change floating focus to the "..key_name, group = "Collision" })
         aw[#aw+1] = awful.key({ "Mod4", "Mod1" ,   "Control"         }, key_name, function () module.screen(k          ) end,
