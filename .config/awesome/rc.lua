@@ -52,7 +52,7 @@ end
 beautiful.init("/home/zed/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "lxterminal"
+terminal = "roxterm"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -125,7 +125,8 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock(" %H:%M ")
+mytextclock.font = "sans 14"
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -187,10 +188,10 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
 beautiful.useless_gap = 6
-beautiful.gap_single_client = true
+beautiful.gap_single_client = false
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 " }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -209,12 +210,66 @@ beautiful.gap_single_client = true
         buttons = taglist_buttons
     }
 
+    --buttons = taglist_buttons
+
+
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
-    }
+    --s.mytasklist = awful.widget.tasklist {
+        --screen  = s,
+        --filter  = awful.widget.tasklist.filter.currenttags,
+        --buttons = tasklist_buttons
+    --}
+
+s.mytasklist = awful.widget.tasklist {
+    screen   = s,
+    filter   = awful.widget.tasklist.filter.currenttags,
+    buttons  = tasklist_buttons,
+    style    = {
+        shape_border_width = 1,
+        shape_border_color = '#777777',
+        shape  = gears.shape.rounded_bar,
+    },
+    layout   = {
+        spacing = 10,
+        spacing_widget = {
+            {
+                forced_width = 5,
+                shape        = gears.shape.circle,
+                widget       = wibox.widget.separator
+            },
+            valign = 'center',
+            halign = 'center',
+            widget = wibox.container.place,
+        },
+        layout  = wibox.layout.flex.horizontal
+    },
+    -- Notice that there is *NO* wibox.wibox prefix, it is a template,
+    -- not a widget instance.
+    widget_template = {
+        {
+            {
+                {
+                    {
+                        id     = 'icon_role',
+                        widget = wibox.widget.imagebox,
+                    },
+                    margins = 2,
+                    widget  = wibox.container.margin,
+                },
+                {
+                    id     = 'text_role',
+                    widget = wibox.widget.textbox,
+                },
+                layout = wibox.layout.fixed.horizontal,
+            },
+            left  = 10,
+            right = 10,
+            widget = wibox.container.margin
+        },
+        id     = 'background_role',
+        widget = wibox.container.background,
+    },
+}
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
@@ -231,7 +286,7 @@ beautiful.gap_single_client = true
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
+           -- mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
             s.mylayoutbox,
@@ -297,26 +352,34 @@ globalkeys = gears.table.join(
     -- ALSA volume control
     awful.key({ "Control"         }, "Up",
         function ()
-            awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")
+            awful.util.spawn("amixer -q set Master 5%+ unmute")
         end),
     awful.key({ "Control"         }, "Down",
         function ()
-            awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")
+            awful.util.spawn("amixer -q set Master 5%- unmute")
         end),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey,           }, "e", function () awful.spawn("mousepad") end,
+    awful.key({ modkey,           }, "e", function () awful.spawn("geany") end,
               {description = "open a editor", group = "launcher"}),
-    awful.key({ modkey,           }, "f", function () awful.spawn("pcmanfm") end,
+    awful.key({ modkey,           }, "f", function () awful.spawn("zzzfm") end,
               {description = "open a filemanager", group = "launcher"}),
-    awful.key({ modkey,           }, "w", function () awful.spawn("google-chrome") end,
+    awful.key({ modkey,           }, "w", function () awful.spawn("brave-browser") end,
               {description = "open a webbrowser", group = "launcher"}),
+    awful.key({ modkey,           }, "y", function () awful.spawn("/opt/brave.com/brave/brave-browser --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml") end,
+              {description = "open youtube", group = "launcher"}),
+    awful.key({ modkey,           }, "c", function () awful.spawn("antixcc.sh") end,
+              {description = "open control-center", group = "launcher"}),
     awful.key({ modkey, "Shift"   }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
+    awful.key({ modkey, "Shift"   }, "e", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
+    awful.key({ modkey, "Shift"   }, "b", function () awful.spawn.with_shell("sudo reboot") end,
+              {description = "reboot system", group = "awesome"}),
+    awful.key({ modkey, "Shift"   }, "q", function () awful.spawn.with_shell("sudo poweroff") end,
+              {description = "close system", group = "awesome"}),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
@@ -517,6 +580,9 @@ awful.rules.rules = {
         -- and the name shown there might not match defined rules here.
         name = {
           "Event Tester",  -- xev.
+          "mpv",
+          "Celluloid",
+          "antiX-Kontrollzentrum",
         },
         role = {
           "AlarmWindow",  -- Thunderbird's calendar.
@@ -530,9 +596,9 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = true }
     },
 
-    -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
+    -- Set Brave to always map on the tag named "1" on screen 1.
+     -- { rule = { class = "Brave-browser" },
+       -- properties = { screen = 1, tag = "1" } },
 }
 -- }}}
 
@@ -550,8 +616,8 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
 --
- awful.titlebar(c,{size=10})
- awful.titlebar.hide(c)
+ awful.titlebar(c,{size=20})
+ --awful.titlebar.hide(c)
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
@@ -583,6 +649,7 @@ client.connect_signal("request::titlebars", function(c)
             layout  = wibox.layout.flex.horizontal
         },
         { -- Right
+            awful.titlebar.widget.minimizebutton(c),
             awful.titlebar.widget.floatingbutton (c),
             awful.titlebar.widget.maximizedbutton(c),
             awful.titlebar.widget.stickybutton   (c),
@@ -594,6 +661,14 @@ client.connect_signal("request::titlebars", function(c)
     }
 end)
 
+-- Signal function to execute when a new client appears.
+client.connect_signal("manage", function (c)
+    -- Set the windows at the slave,
+    -- i.e. put it at the end of others instead of setting it master.
+    if not awesome.startup then awful.client.setslave(c) end
+    --...
+end)
+
 -- Enable sloppy focus, so that focus follows mouse.
 --client.connect_signal("mouse::enter", function(c)
 --    c:emit_signal("request::activate", "mouse_enter", {raise = false})
@@ -602,7 +677,7 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
-awful.spawn.with_shell("nitrogen --restore")
+awful.spawn.with_shell("./.fehbg")
 
 
 
