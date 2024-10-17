@@ -12,25 +12,52 @@ local themes_path = gfs.get_themes_dir()
 local theme = {}
 
 theme.font          = "sans 9"
+theme.taglist_font        = "sans 11"
+theme.tasklist_font        = "sans 10"
 
-theme.bg_normal     = "#222222"
-theme.bg_focus      = "#383c4a"
+theme.bg_normal     = "#21252b"
+theme.bg_focus      = "#3a414b"
 theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#444444"
+theme.bg_minimize   = "#292e36"
 theme.bg_systray    = theme.bg_normal
+theme.fg_systray    = theme.fg_focus
 
 theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#ffffff"
-theme.fg_urgent     = "#ffffff"
+theme.fg_focus      = "#dcdee1"
+theme.fg_urgent     = "#dcdee1"
 theme.fg_minimize   = "#ffffff"
 
 theme.useless_gap   = dpi(0)
-theme.border_width  = dpi(0.5)
-theme.border_normal = "#000000"
-theme.border_focus  = "#26f400"
+theme.border_width  = dpi(1)
+theme.border_normal = "#21252b"
+theme.border_focus  = "#dcdee1"
 theme.border_marked = "#91231c"
 
-theme.taglist_bg_focus    = "#4b5162"
+theme.titlebar_bg_normal = "#21252b"
+theme.titlebar_bg_focus = "#21252b"
+theme.titlebar_fg_normal = "#aaaaaa"
+theme.titlebar_fg_focus = "#ffffff"
+
+theme.tasklist_bg_normal = "#292e36"
+theme.tasklist_bg_focus = "#3a414b"
+theme.tasklist_fg_normal = "#aaaaaa"
+theme.tasklist_fg_focus = "#ffffff"
+
+theme.hotkeys_modifiers_fg = "#00FF00"
+-- theme.hotkeys_fg = "#00FF00"
+-- theme.description_fg = theme.fg_focus
+-- theme.mytextclock_fg = "#ff0000"
+
+--theme.menubar_border_width = 1
+--theme.menubar_border_color = "#ff0000"
+theme.wibar_border_width = 1
+theme.wibar_border_color = "#000000"
+--theme.tasklist_shape = gears.shape.rounded_bar
+--theme.tasklist_shape_border_width = 1
+--theme.tasklist_shape_border_color = "#3a414b"
+--theme.tasklist_shape_border_width_focus = 1
+--theme.tasklist_shape_border_color_focus = "#292e36"
+--theme.taglist_bg_focus    = "#4b5162"
 -- There are other variable sets
 -- overriding the default one when
 -- defined, the sets are:
@@ -130,3 +157,4 @@ theme.tasklist_disable_icon = true
 return theme
 
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
+
